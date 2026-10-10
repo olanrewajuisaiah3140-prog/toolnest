@@ -1,6 +1,10 @@
-"""Small, memory-only PDF endpoints. Files are never persisted by this app."""
+"""PDF endpoints. Compression may use short-lived temporary files, deleted after processing."""
 import io
 import zipfile
+import os
+import tempfile
+import gc
+import fitz
 from flask import Blueprint, request, jsonify, send_file
 from pypdf import PdfReader, PdfWriter
 from pypdf.errors import PdfReadError
@@ -81,6 +85,109 @@ def range_pages(raw, limit):
     return numbers
 
 
+
+
+def smart_compress():
+    """Compress one PDF, avoiding full-document rasterization.
+
+    Uses sequential image replacement and periodic saves so decoded images
+    are not all retained at once. Output may be returned unchanged when
+    no smaller result is achievable. Does not promise every PDF will fit RAM.
+    """
+    files = uploaded()
+    if len(files) != 1:
+        raise ValueError('Select exactly one PDF.')
+    raw = files[0]
+    if not raw.startswith(b'%PDF-'):
+        raise ValueError('Only PDF files are supported.')
+
+    mode = request.form.get('compression_level', 'balanced')
+    if mode not in ('light', 'balanced', 'strong'):
+        raise ValueError('Invalid compression level.')
+
+    # A conservative ceiling for low-memory free hosting. Can be changed
+    # using PDF_COMPRESS_MAX_MB in Render environment settings.
+    limit_mb = int(os.environ.get('PDF_COMPRESS_MAX_MB', '14'))
+    if len(raw) > limit_mb * 1024 * 1024:
+        raise ValueError(f'For reliable processing, use a PDF under {limit_mb} MB.')
+
+    settings = {
+        'light':    {'quality': 82, 'max_dim': 2200},
+        'balanced': {'quality': 62, 'max_dim': 1700},
+        'strong':   {'quality': 45, 'max_dim': 1350},
+    }[mode]
+    paths = []
+    pdf = None
+    try:
+        pdf = fitz.open(stream=raw, filetype='pdf')
+        if pdf.needs_pass:
+            raise ValueError('Password-protected PDFs are not supported.')
+        if len(pdf) > MAX_PDF_PAGES:
+            raise ValueError(f'PDFs must have {MAX_PDF_PAGES} pages or fewer.')
+        already_seen = set()
+        replacements_since_save = 0
+        for page_number in range(len(pdf)):
+            # Find images without rendering entire pages.
+            for image_info in pdf[page_number].get_images(full=True):
+                xref = image_info[0]
+                if xref in already_seen:
+                    continue
+                already_seen.add(xref)
+                if mode == 'light':
+                    continue
+                try:
+                    info = pdf.extract_image(xref)
+                    original_image = info['image']
+                    with Image.open(io.BytesIO(original_image)) as img:
+                        width, height = img.size
+                        if width * height > 14_000_000 or width < 200 or height < 200:
+                            continue
+                        # Preserve images with transparency or masks rather
+                        # than potentially changing appearance when flattened.
+                        if img.mode not in ('RGB', 'L') or image_info[1]:
+                            continue
+                        img.thumbnail((settings['max_dim'], settings['max_dim']))
+                        output = io.BytesIO()
+                        img.save(output, format='JPEG', quality=settings['quality'], optimize=True)
+                        new_image = output.getvalue()
+                    if len(new_image) < len(original_image) * 0.92:
+                        pdf[page_number].replace_image(xref, stream=new_image)
+                        replacements_since_save += 1
+                    del info, original_image
+                except (ValueError, OSError, RuntimeError, TypeError):
+                    # Some image types cannot safely be replaced. Leave intact.
+                    continue
+
+                # Periodically save and reopen to release old image versions.
+                if replacements_since_save >= 7:
+                    fd, temp_path = tempfile.mkstemp(prefix='toolnest-', suffix='.pdf')
+                    os.close(fd)
+                    paths.append(temp_path)
+                    pdf.save(temp_path, garbage=3, deflate=True, use_objstms=1)
+                    pdf.close()
+                    pdf = fitz.open(temp_path)
+                    replacements_since_save = 0
+                    gc.collect()
+
+        output = io.BytesIO()
+        pdf.save(output, garbage=3, deflate=True, use_objstms=1)
+        result = output.getvalue()
+        if len(result) >= len(raw):
+            result = raw
+        return send_file(
+            io.BytesIO(result), mimetype='application/pdf',
+            as_attachment=True, download_name='optimized.pdf'
+        )
+    finally:
+        if pdf is not None:
+            pdf.close()
+        for path in paths:
+            try:
+                os.remove(path)
+            except OSError:
+                pass
+
+
 @pdf_bp.post('/api/pdf/<action>')
 def process_pdf(action):
     try:
@@ -121,6 +228,8 @@ def process_pdf(action):
                         z.writestr(f'page-{idx+1}.jpg',pix.tobytes('jpeg', jpg_quality=80))
             output.seek(0)
             return send_file(output, mimetype='application/zip', as_attachment=True, download_name='pdf-pages.zip')
+        if action == 'compress':
+            return smart_compress()
         docs = readers()
         if action == 'merge':
             if len(docs)<2:
@@ -150,18 +259,6 @@ def process_pdf(action):
                 writer.add_page(page)
                 writer.pages[-1].rotate(angle)
             return pdf_response(writer,'rotated.pdf')
-        if action == 'compress':
-            writer = PdfWriter()
-            for page in doc.pages:
-                writer.add_page(page)
-                writer.pages[-1].compress_content_streams()
-            for p in writer.pages:
-                try:
-                    for image in p.images:
-                        image.replace(image.image, quality=65)
-                except Exception:
-                    pass
-            return pdf_response(writer,'optimized.pdf')
         if action == 'pdf-to-text':
             contents = '\n\n'.join(f'--- PAGE {i+1} ---\n{page.extract_text() or ""}' for i,page in enumerate(doc.pages))
             data = io.BytesIO(contents.encode('utf-8'))

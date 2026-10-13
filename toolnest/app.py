@@ -1,23 +1,43 @@
 import io
 import os
-from flask import Flask, render_template, request, send_file, jsonify, Response, url_for
+from flask import Flask, render_template, request, send_file, jsonify, Response, url_for, send_from_directory
 from PIL import Image, UnidentifiedImageError
 import qrcode
 
 from pdf_tools import pdf_bp
+from tool_catalog import TOOL_PAGES, BY_SLUG, BY_KEY
+
+SITE_URL = os.environ.get('SITE_URL', 'https://toolnest-x6cl.onrender.com').rstrip('/')
 
 app = Flask(__name__)
 app.register_blueprint(pdf_bp)
 app.config['MAX_CONTENT_LENGTH'] = 30 * 1024 * 1024
-@app.get('/googlea67500ad9983a48a.html')
-def google_verification():
-    return send_from_directory(
-        app.root_path,
-        'googlea67500ad9983a48a.html'
-    )
+
 @app.get('/')
 def home():
-    return render_template('index.html')
+    return render_template('index.html', tools=TOOL_PAGES, site_url=SITE_URL)
+
+
+@app.get('/<slug>')
+def tool_page(slug):
+    tool = BY_SLUG.get(slug)
+    if tool is None:
+        # Return a true 404; do not serve an unrelated generic tool page.
+        from flask import abort
+        abort(404)
+    related = [BY_SLUG[item] if item in BY_SLUG else BY_KEY[item] for item in tool['related']]
+    return render_template('tool.html', tool=tool, related=related, site_url=SITE_URL)
+
+
+@app.get('/googlea67500ad9983a48a.html')
+def google_verification():
+    # Preserve the Search Console verification file already used for this website.
+    return send_from_directory(app.root_path, 'googlea67500ad9983a48a.html')
+
+@app.context_processor
+def site_data():
+    return {'site_url': SITE_URL}
+
 
 @app.get('/about')
 def about():
@@ -41,14 +61,18 @@ def contact():
 
 @app.get('/robots.txt')
 def robots():
-    return Response('User-agent: *\nAllow: /\nSitemap: '+request.url_root.rstrip('/')+'/sitemap.xml\n', mimetype='text/plain')
+    return Response(f'User-agent: *\nAllow: /\nSitemap: {SITE_URL}/sitemap.xml\n', mimetype='text/plain')
+
 
 @app.get('/sitemap.xml')
 def sitemap():
     from xml.sax.saxutils import escape
-    routes = ['home','about','privacy','terms','contact']
-    urls = ''.join('<url><loc>'+escape(url_for(route, _external=True))+'</loc></url>' for route in routes)
-    return Response('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+urls+'</urlset>', mimetype='application/xml')
+    paths = ['/', '/about', '/privacy', '/terms', '/contact'] + [f"/{tool['slug']}" for tool in TOOL_PAGES]
+    urls = ''.join(f'<url><loc>{escape(SITE_URL + path)}</loc></url>' for path in paths)
+    return Response('<?xml version="1.0" encoding="UTF-8"?>'
+                    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+                    + urls + '</urlset>', mimetype='application/xml')
+
 
 @app.get('/health')
 def health():
@@ -110,4 +134,3 @@ def file_too_large(_):
 
 if __name__ == '__main__':
     app.run(debug=os.getenv('FLASK_DEBUG') == '1', port=int(os.getenv('PORT', '5000')))
-from flask import send_from_directory

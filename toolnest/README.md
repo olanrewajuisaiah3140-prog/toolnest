@@ -1,29 +1,41 @@
-# ToolNest V3 — 12 Tools + Professional Layout
+# ToolNest V5 — Premium Design Refresh
 
-## Run on Windows
-
-Open PowerShell **inside this folder** (the one containing app.py, pdf_tools.py and requirements.txt).
-
-```powershell
-py -m pip install -r requirements.txt
-python app.py
-```
-
-Visit http://127.0.0.1:5000
+A nature-inspired visual redesign based on the layout reference, adapted for ToolNest's 12 free utility tools.
 
 ## What's new
-- Search, filters (PDF / Images / Text & utilities), improved mobile header and homepage
-- About, Privacy Policy, Terms of Use and Contact pages
-- /robots.txt, /sitemap.xml, meta descriptions and canonical links
-- All **12 V2 tool features preserved**
 
-## IMPORTANT BEFORE PUBLISHING
-1. Edit `templates/page.html`: replace the setup notice on the Contact page with **your own real contact method**.
-2. Review the Privacy Policy and Terms to reflect your actual data handling, hosting, analytics and ad providers.
-3. This is not AdSense approval. A free hosting subdomain may be ineligible for direct AdSense signup.
-4. Your tool processing uses RAM and free hosting may have memory, timeout and file-size limits; test real files before sharing publicly.
-5. Set `FLASK_DEBUG=0` in production. Gunicorn can serve this app on Linux using: `gunicorn app:app --bind 0.0.0.0:$PORT`.
-6. SEO meta and a sitemap don't guarantee Google indexing or traffic.
+- Rich dark-green hero with original visual PDF-workspace illustration (HTML/CSS), rounded floating navigation and prominent search field
+- Styled category filters, distinct tool cards, three-step guide, polished FAQs and footer
+- Redesigned 12 standalone tool pages and About/Privacy/Terms/Contact pages
+- Lightweight custom SVG favicon, responsive layout and keyboard focus styles
+- Preserved the V4 Smart PDF Compressor (Light / Balanced / Strong) and all tool API endpoints
+- Preserved the Google Search Console verification file and sitemap route (17 URLs)
 
-## Folder warning
-Do **not** extract the ZIP into an existing `toolnest` folder and then accidentally run the older outer app.py. Extract to a NEW location and open the folder containing both `app.py` and `pdf_tools.py`.
+## Safe local installation on Windows
+
+1. **Keep your V4 and previous V5 folders.** Do not overwrite them yet.
+2. Extract the **complete** ZIP and open the `toolnest` folder containing `app.py` and `requirements.txt` in VS Code.
+3. In VS Code Terminal run `py -m pip install -r requirements.txt`.
+4. Run `python app.py`. Visit `http://127.0.0.1:5000`.
+5. Check the homepage, search, category filters, `merge-pdf`, `compress-pdf` (especially Strong), and pages such as `/privacy`.
+6. Once it works locally, push this version into the **existing** GitHub repository's `toolnest/` folder. Keep the GitHub files within `toolnest/static/` and `toolnest/templates/`. Render can then deploy automatically.
+
+## Apply the small update to a previously working V5
+
+The **update-only** ZIP contains only presentation files:
+
+- `static/style.css` (replace)
+- `static/favicon.svg` (add)
+- `templates/index.html` (replace)
+- `templates/tool.html` (replace)
+- `templates/page.html` (replace)
+
+No changes are needed in `app.py`, `pdf_tools.py`, `tool_catalog.py`, `requirements.txt` or `static/script.js` **if your existing project is already V5**. If your working project is still V4, use the complete V5 project instead of update-only.
+
+## Notes
+
+- This version changes the **design**, not the underlying compression algorithms or existing file-processing limits.
+- The demo file-processing interface in the homepage hero is decorative: actual tools function on their own tool pages.
+- It does not add analytics, advertisements or new trackers.
+- Hosting resource limits can still affect large PDF uploads. Test live processing after deployment.
+- The free Render subdomain and Search Console verification are preserved; search indexing and AdSense approval are not guaranteed.

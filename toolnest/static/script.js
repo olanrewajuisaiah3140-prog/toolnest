@@ -20,7 +20,7 @@ function showPdfTool(which){const c=pdfConfigs[which];body.innerHTML=`<p class="
 function saveBlob(blob,name){const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),2000)}
 async function postAndDownload(path,fields,filename){status.textContent='Processing...';try{const response=await fetch(path,{method:'POST',body:fields});if(!response.ok){let message='Could not process request';try{message=(await response.json()).error||message}catch{}throw Error(message)}saveBlob(await response.blob(),filename);status.textContent='';}catch(e){status.textContent=e.message}}
 function securePassword(length,chars){const output=[];const max=Math.floor(256/chars.length)*chars.length;while(output.length<length){const numbers=new Uint8Array(Math.max(32,length));crypto.getRandomValues(numbers);for(const n of numbers){if(n<max){output.push(chars[n%chars.length]);if(output.length===length)break}}}return output.join('')}
-function showTool(which){title.textContent=names[which];body.innerHTML=templates[which];status.textContent='';workspace.hidden=false;workspace.scrollIntoView({behavior:'smooth',block:'start'});
+function showTool(which){title.textContent=names[which];body.innerHTML=templates[which]||'';status.textContent='';workspace.hidden=false;if(!document.body.dataset.toolPage)workspace.scrollIntoView({behavior:'smooth',block:'start'});
 if(pdfConfigs[which])showPdfTool(which);
 if(which==='compress')document.getElementById('compress-btn').onclick=()=>{const file=document.getElementById('image').files[0];if(!file){status.textContent='Choose an image first.';return}if(file.size>8*1024*1024){status.textContent='File must be smaller than 8 MB.';return}const form=new FormData();form.append('image',file);postAndDownload('/api/compress',form,'compressed-image')};
 if(which==='qr')document.getElementById('qr-btn').onclick=()=>{const data=document.getElementById('qr-data').value.trim();if(!data){status.textContent='Enter text or a URL first.';return}const form=new FormData();form.append('data',data);postAndDownload('/api/qr',form,'qr-code.png')};
@@ -28,7 +28,7 @@ if(which==='word'){const input=document.getElementById('word-input'),stats=docum
 if(which==='password'){document.getElementById('pass-btn').onclick=()=>{const n=Number(document.getElementById('pass-length').value);if(!Number.isInteger(n)||n<8||n>64){status.textContent='Choose a length from 8 to 64.';return}let chars='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';if(document.getElementById('pass-numbers').checked)chars+='0123456789';if(document.getElementById('pass-symbols').checked)chars+='!@#$%^&*()-_=+';document.getElementById('pass-result').value=securePassword(n,chars);status.textContent=''};document.getElementById('pass-copy').onclick=()=>copy(document.getElementById('pass-result').value)};
 if(which==='case'){body.querySelectorAll('[data-case]').forEach(btn=>btn.onclick=()=>{const t=document.getElementById('case-input').value;const type=btn.dataset.case;document.getElementById('case-result').value=type==='upper'?t.toUpperCase():type==='lower'?t.toLowerCase():type==='title'?t.toLowerCase().replace(/\b\p{L}/gu,c=>c.toUpperCase()):t.toLowerCase().replace(/(^\s*\p{L}|[.!?]\s*\p{L})/gu,c=>c.toUpperCase())});document.getElementById('case-copy').onclick=()=>copy(document.getElementById('case-result').value)}}
 async function copy(v){if(!v){status.textContent='Nothing to copy yet.';return}try{await navigator.clipboard.writeText(v);status.textContent='Copied!'}catch{status.textContent='Copy failed. Select the text and copy manually.'}}
-document.querySelectorAll('[data-tool]').forEach(x=>x.onclick=()=>showTool(x.dataset.tool));document.getElementById('close').onclick=()=>{workspace.hidden=true;document.getElementById('tools').scrollIntoView({behavior:'smooth'})};
+// V5 tool cards are real links. Standalone pages initialize the matching V4 tool below.
 
 // V3 tool search and category browsing (keeps V2 tool handlers intact)
 const searchBox = document.getElementById('tool-search');
@@ -36,6 +36,7 @@ const categoryButtons = [...document.querySelectorAll('[data-filter]')];
 const toolCards = [...document.querySelectorAll('.tool-card')];
 let currentCategory = 'all';
 function filterTools(){
+  if (!searchBox) return;
   const query = searchBox.value.toLowerCase().trim();
   let visible = 0;
   for (const card of toolCards){
@@ -44,7 +45,8 @@ function filterTools(){
     card.hidden = !matches;
     if(matches)visible++;
   }
-  document.getElementById('no-results').hidden = visible !== 0;
+  const noResults = document.getElementById('no-results');
+  if(noResults) noResults.hidden = visible !== 0;
 }
 function selectCategory(category){
   currentCategory = category;
@@ -55,6 +57,13 @@ function selectCategory(category){
   });
   filterTools();
 }
-searchBox.addEventListener('input', filterTools);
+if(searchBox) searchBox.addEventListener('input', filterTools);
 categoryButtons.forEach(button => button.addEventListener('click', () => selectCategory(button.dataset.filter)));
-document.querySelectorAll('[data-nav-filter]').forEach(link => link.addEventListener('click', () => selectCategory(link.dataset.navFilter)));
+// Honor links like /?category=pdf#tools when visitors arrive on the homepage.
+if(searchBox){
+  const requested = new URLSearchParams(window.location.search).get('category');
+  if(['pdf','image','text'].includes(requested)) selectCategory(requested);
+}
+// Standalone tool pages use exactly the same tested V4 form and API handlers.
+if(document.body.dataset.toolPage) showTool(document.body.dataset.toolPage);
+

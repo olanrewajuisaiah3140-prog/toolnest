@@ -1,22 +1,83 @@
-<!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="12 free online tools for PDFs, images, QR codes and text. Merge, split, convert and compress files without signing up."><meta name="robots" content="index,follow"><meta property="og:title" content="ToolNest — Free PDF, Image & Text Tools"><meta property="og:description" content="Simple free utilities for your everyday tasks."><meta property="og:type" content="website"><link rel="canonical" href="{{ url_for('home', _external=True) }}"><title>ToolNest — Free Online Tools</title><link rel="stylesheet" href="/static/style.css"></head>
-<body><a class="skip-link" href="#main">Skip to content</a><header class="top"><a class="logo" href="/" aria-label="ToolNest home"><span class="logo-mark">✦</span><span>ToolNest</span></a><nav class="top-nav" aria-label="Main navigation"><a href="/#tools">All tools</a><a href="/#tools" data-nav-filter="pdf">PDF tools</a><a href="/#tools" data-nav-filter="image">Image tools</a><a href="/about">About</a></nav><span class="top-note">Free tools. No sign-up.</span></header>
-<main id="main"><section class="hero"><div class="eyebrow">SIMPLE TOOLS. SMARTER WORK.</div><h1>Everything you need,<br><em>one click away.</em></h1><p>Fast, practical tools for your everyday tasks. Free to use, from any device.</p><a href="#tools" class="cta">Explore free tools ↓</a><div class="hero-points"><span>✓ 12 useful tools</span><span>✓ No account needed</span><span>✓ Built for mobile & desktop</span></div></section>
-<section id="tools" class="section"><div class="section-head"><div><span class="eyebrow">YOUR TOOLBOX</span><h2>Pick a tool. Get it done.</h2></div><p>PDF, image and text utilities</p></div><div class="toolbar"><label class="visually-hidden" for="tool-search">Search tools</label><input id="tool-search" type="search" placeholder="Search tools — e.g. merge PDF" autocomplete="off"><div class="filter-bar" role="group" aria-label="Filter tools"><button class="filter active" data-filter="all" aria-pressed="true">All <span>12</span></button><button class="filter" data-filter="pdf" aria-pressed="false">PDF <span>7</span></button><button class="filter" data-filter="image" aria-pressed="false">Images <span>2</span></button><button class="filter" data-filter="text" aria-pressed="false">Text & utilities <span>3</span></button></div></div><p id="no-results" class="muted" hidden>No tools match your search. Try another keyword.</p><div class="tool-grid">
-<button class="tool-card" data-category="image" data-tool="compress"><span class="glyph">▧</span><strong>Image Compressor</strong><small>Reduce image file sizes easily</small><span class="go">Open tool ↗</span></button>
-<button class="tool-card" data-category="image" data-tool="qr"><span class="glyph">▦</span><strong>QR Code Generator</strong><small>Create shareable QR codes</small><span class="go">Open tool ↗</span></button>
-<button class="tool-card" data-category="text" data-tool="word"><span class="glyph">≡</span><strong>Word Counter</strong><small>Count words and characters</small><span class="go">Open tool ↗</span></button>
-<button class="tool-card" data-category="text" data-tool="password"><span class="glyph">✳</span><strong>Password Generator</strong><small>Generate secure passwords</small><span class="go">Open tool ↗</span></button>
-<button class="tool-card" data-category="text" data-tool="case"><span class="glyph">Aa</span><strong>Text Case Converter</strong><small>Uppercase, lowercase & more</small><span class="go">Open tool ↗</span></button>
-<button class="tool-card" data-category="pdf" data-tool="pdf-merge"><span class="glyph">⊕</span><strong>Merge PDF</strong><small>Combine several PDFs into one</small><span class="go">Open tool ↗</span></button>
-<button class="tool-card" data-category="pdf" data-tool="pdf-split"><span class="glyph">✂</span><strong>Split / Extract PDF</strong><small>Choose pages to keep</small><span class="go">Open tool ↗</span></button>
-<button class="tool-card" data-category="pdf" data-tool="pdf-compress"><span class="glyph">▤</span><strong>Compress PDF</strong><small>Optimize PDF file size</small><span class="go">Open tool ↗</span></button>
-<button class="tool-card" data-category="pdf" data-tool="pdf-rotate"><span class="glyph">↻</span><strong>Rotate PDF</strong><small>Rotate every page</small><span class="go">Open tool ↗</span></button>
-<button class="tool-card" data-category="pdf" data-tool="pdf-images"><span class="glyph">▧</span><strong>PDF to JPG</strong><small>Download pages as JPG images</small><span class="go">Open tool ↗</span></button>
-<button class="tool-card" data-category="pdf" data-tool="pdf-create"><span class="glyph">▧</span><strong>Images to PDF</strong><small>Combine JPG, PNG, WebP images</small><span class="go">Open tool ↗</span></button>
-<button class="tool-card" data-category="pdf" data-tool="pdf-text"><span class="glyph">≡</span><strong>PDF to Text</strong><small>Extract selectable text</small><span class="go">Open tool ↗</span></button>
-</div></section>
-<section id="workspace" class="workspace" hidden><div class="section-head"><div><span class="eyebrow">WORKSPACE</span><h2 id="workspace-title">Tool</h2></div><button id="close" class="subtle">✕ Close</button></div><div id="workspace-body"></div><div id="status" role="status" aria-live="polite"></div></section>
-<section class="about"><span class="eyebrow">WHY TOOLNEST</span><h2>Useful tools, without the extra steps.</h2><p>Quick file tasks, tidy text and everyday utilities in one place. Some tools run entirely in your browser; PDF and image uploads are processed by our server and returned as downloads.</p><a class="plain-link" href="/about">More about ToolNest →</a></section><section class="faq"><div><span class="eyebrow">GOOD TO KNOW</span><h2>Quick questions</h2></div><div><details><summary>Do I need to sign up?</summary><p>No. These tools do not require an account.</p></details><details><summary>Are uploaded files stored?</summary><p>ToolNest's PDF and image processing is designed to handle uploads in memory rather than saving them as permanent files. Hosting infrastructure may still process logs and temporary data; see our <a href="/privacy">Privacy Policy</a>.</p></details><details><summary>Is PDF compression always smaller?</summary><p>No. Some PDFs are already optimized and may not shrink further.</p></details></div></section></main>
-<footer><div>© <span id="year"></span> ToolNest · Free online utilities</div><nav aria-label="Footer"><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/contact">Contact</a></nav></footer>
-<script src="/static/script.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#123d2a">
+  <title>ToolNest — Free PDF, Image & Text Tools Online</title>
+  <link rel="icon" href="{{ url_for('static', filename='favicon.svg') }}" type="image/svg+xml">
+  <meta name="description" content="12 easy-to-use online tools for PDFs, images and text. Merge or compress PDFs, convert images, count words and more. Free, with no sign-up.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="{{ site_url }}/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="ToolNest — Free PDF, Image & Text Tools">
+  <meta property="og:description" content="Small tasks, beautifully simple. All your everyday file and text tools in one place.">
+  <meta property="og:url" content="{{ site_url }}/">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="homepage">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="site-shell">
+  <header class="top" role="banner">
+    <a class="logo" href="/" aria-label="ToolNest home"><span class="logo-mark" aria-hidden="true">✦</span><span>ToolNest<span class="logo-dot">.</span></span></a>
+    <nav class="top-nav" aria-label="Main navigation"><a href="/#tools">All tools</a><a href="/?category=pdf#tools">PDF tools</a><a href="/?category=image#tools">Image tools</a><a href="/about">About us</a></nav>
+    <a class="nav-cta" href="#tools">Explore tools <span aria-hidden="true">↗</span></a>
+  </header>
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+        <div class="hero-visual-card">
+          <div class="visual-topline"><span class="visual-dot"></span><span class="visual-dot"></span><span class="visual-dot"></span><span class="visual-toplabel">YOUR WORKSPACE</span></div>
+          <div class="visual-title">Ready when you are.</div>
+          <div class="visual-subtitle">Simple tools. Real results.</div>
+          <div class="visual-file visual-file-one"><span class="file-icon file-pdf">PDF</span><span><strong>company-profile.pdf</strong><small>Document ready to work on</small></span><span class="file-check">✓</span></div>
+          <div class="visual-progress"><div class="progress-heading"><span>Optimizing your file</span><strong>Complete</strong></div><div class="progress-track"><span></span></div></div>
+          <div class="visual-download"><span>↧</span><span>Your file is ready</span><b>Download ↗</b></div>
+        </div>
+        <div class="float-chip chip-top"><span class="chip-icon">✦</span><span><strong>12 useful tools</strong><small>One simple place</small></span></div>
+        <div class="float-chip chip-bottom"><span class="chip-icon chip-icon-light">✓</span><span><strong>No sign-up needed</strong><small>Just open & use</small></span></div>
+        <div class="visual-star star-one">✳</div><div class="visual-star star-two">✦</div>
+      </div>
+      <div class="hero-copy">
+        <span class="hero-eyebrow"><span class="eyebrow-sparkle" aria-hidden="true">✳</span> THE EVERYDAY DIGITAL TOOLKIT</span>
+        <h1 id="hero-title">Your work,<br><span>made easier.</span></h1>
+        <p>PDFs, images, text and everything in between. The useful little tools you need, together in one beautiful place.</p>
+        <div class="hero-actions"><a class="cta cta-light" href="#tools">Discover all tools <span aria-hidden="true">↗</span></a><a class="hero-secondary" href="/compress-pdf">Try PDF compressor <span aria-hidden="true">→</span></a></div>
+        <div class="hero-mini-note"><span class="mini-shield">✓</span> Free to use &nbsp; <span class="mini-dot">•</span> &nbsp; No account required</div>
+      </div>
+    </section>
+    <div class="search-dock" role="search" aria-label="Find a ToolNest tool"><span class="search-graphic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg></span><label class="visually-hidden" for="tool-search">Search all tools</label><input type="search" id="tool-search" placeholder="What would you like to do? Try 'compress PDF'…" autocomplete="off"><a class="search-button" href="#tools" aria-label="Explore matching tools">Find a tool <span aria-hidden="true">↗</span></a></div>
+    <div class="trust-strip" aria-label="Our commitments"><span><span aria-hidden="true">✦</span> Simple by design</span><span><span aria-hidden="true">✓</span> No registration needed</span><span><span aria-hidden="true">↧</span> Easy downloads</span></div>
+    <section id="tools" class="section tools-section" aria-labelledby="tools-heading">
+      <div class="section-heading"><div><span class="eyebrow">EXPLORE THE COLLECTION</span><h2 id="tools-heading">One place. <em>Every little task.</em></h2><p>Find the right tool in a moment and get on with your day.</p></div><span class="section-counter">12 tools, ready to help <span aria-hidden="true">↘</span></span></div>
+      <div class="filter-bar" role="group" aria-label="Filter tools by category"><button class="filter active" data-filter="all" aria-pressed="true">All tools <span>12</span></button><button class="filter" data-filter="pdf" aria-pressed="false">PDF tools <span>7</span></button><button class="filter" data-filter="image" aria-pressed="false">Image tools <span>2</span></button><button class="filter" data-filter="text" aria-pressed="false">Text & utilities <span>3</span></button></div>
+      <p id="no-results" class="no-results muted" hidden>No matching tools found. Try a different search or category.</p>
+      <div class="tool-grid">
+        {% for tool in tools %}
+        <a class="tool-card{% if tool.slug in ['compress-pdf','merge-pdf','image-compressor'] %} featured-tool{% endif %}" href="/{{ tool.slug }}" data-category="{{ tool.category }}" aria-label="Open {{ tool.title }}">
+          <span class="card-topline"><span class="card-category">{{ tool.label }}</span><span class="card-open" aria-hidden="true">↗</span></span>
+          <span class="card-main"><span class="glyph" aria-hidden="true">{{ tool.glyph }}</span><strong>{{ tool.title }}</strong><small>{{ tool.lead }}</small></span>
+          <span class="go">Use this tool <span aria-hidden="true">→</span></span>
+        </a>
+        {% endfor %}
+      </div>
+    </section>
+    <section class="journey" aria-labelledby="journey-heading">
+      <div class="journey-main"><span class="eyebrow">HOW IT WORKS</span><h2 id="journey-heading">Less figuring out.<br><em>More getting things done.</em></h2><p>No confusing menus or complicated software. Pick what you need, add your content and get back to what matters.</p><a class="cta cta-dark" href="#tools">Get started for free <span aria-hidden="true">↗</span></a></div>
+      <div class="journey-steps"><div><span class="step-num">01</span><span><strong>Choose your tool</strong><small>Find the right utility from our collection.</small></span></div><div><span class="step-num">02</span><span><strong>Add your file or text</strong><small>Follow the straightforward on-screen instructions.</small></span></div><div><span class="step-num">03</span><span><strong>Get your result</strong><small>Download your file or copy your result.</small></span></div></div>
+    </section>
+    <section class="feature-banner"><div class="banner-icon" aria-hidden="true">▧<span>✓</span></div><div><span class="eyebrow">A LITTLE MORE ABOUT US</span><h2>Built for the work you do every day.</h2><p>From merging important PDFs to creating shareable QR codes, ToolNest brings practical online utilities together without the clutter.</p><a class="plain-link" href="/about">Get to know ToolNest <span aria-hidden="true">↗</span></a></div></section>
+    <section class="faq" aria-labelledby="faq-heading"><div><span class="eyebrow">GOOD TO KNOW</span><h2 id="faq-heading">Questions? <em>Answered.</em></h2><p>Everything you need to know before you start.</p></div><div class="faq-list">
+      <details><summary>Do I need to create an account?<span aria-hidden="true">＋</span></summary><p>No. ToolNest is free to use and requires no registration.</p></details>
+      <details><summary>What happens to files I upload?<span aria-hidden="true">＋</span></summary><p>Files are processed for your request. Some tools use temporary server files, which are removed after processing. Avoid uploading sensitive documents; see our <a href="/privacy">Privacy Policy</a>.</p></details>
+      <details><summary>Can I use ToolNest on my phone?<span aria-hidden="true">＋</span></summary><p>Yes. ToolNest is designed for phones, tablets and desktops. Some large files may be limited by free server resources.</p></details>
+      <details><summary>Will PDF compression always reduce size?<span aria-hidden="true">＋</span></summary><p>Not necessarily. Already-optimized PDFs may remain the same size. Stronger settings can reduce image quality, so review the result.</p></details>
+    </div></section>
+  </main>
+  <footer class="site-footer"><div class="footer-main"><div><a class="logo footer-logo" href="/"><span class="logo-mark" aria-hidden="true">✦</span><span>ToolNest<span class="logo-dot">.</span></span></a><p>Small tasks, beautifully simple.<br>Free tools for your everyday workflow.</p></div><div class="footer-links"><div><strong>Explore</strong><a href="/#tools">All tools</a><a href="/?category=pdf#tools">PDF tools</a><a href="/?category=image#tools">Image tools</a></div><div><strong>Company</strong><a href="/about">About</a><a href="/contact">Contact</a><a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Use</a></div></div></div><div class="footer-bottom"><span>© <span id="year">2026</span> ToolNest. All rights reserved.</span><span>Made for everyday work <span aria-hidden="true">✳</span></span></div></footer>
+</div>
+<script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</body>
+</html>

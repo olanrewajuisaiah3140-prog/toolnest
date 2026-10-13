@@ -9,7 +9,12 @@ from pdf_tools import pdf_bp
 app = Flask(__name__)
 app.register_blueprint(pdf_bp)
 app.config['MAX_CONTENT_LENGTH'] = 30 * 1024 * 1024
-
+@app.get('/googlea67500ad9983a48a.html')
+def google_verification():
+    return send_from_directory(
+        app.root_path,
+        'googlea67500ad9983a48a.html'
+    )
 @app.get('/')
 def home():
     return render_template('index.html')

@@ -1,16 +1,7 @@
 <!doctype html>
 <html lang="en">
-<head>
   
-<!-- Google Analytics 4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-SVJBD7FV2R"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-SVJBD7FV2R');
-</script>
-
+<head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#123d2a">
@@ -24,7 +15,28 @@
   <meta property="og:description" content="Small tasks, beautifully simple. All your everyday file and text tools in one place.">
   <meta property="og:url" content="{{ site_url }}/">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script>
+  function enableAnalytics() {
+    if (window.toolnestAnalyticsLoaded) return;
+    window.toolnestAnalyticsLoaded = true;
+
+    const script = document.createElement('script');
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=G-SVJBD7FV2R';
+    script.async = true;
+    document.head.appendChild(script);
+
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-SVJBD7FV2R');
+  }
+
+  if (localStorage.getItem('toolnest_cookie_consent') === 'accepted') {
+    enableAnalytics();
+  }
+</script>
 </head>
+
 <body class="homepage">
 <a class="skip-link" href="#main">Skip to content</a>
 <div class="site-shell">
@@ -89,5 +101,42 @@
   <footer class="site-footer"><div class="footer-main"><div><a class="logo footer-logo" href="/"><span class="logo-mark" aria-hidden="true">✦</span><span>ToolNest<span class="logo-dot">.</span></span></a><p>Small tasks, beautifully simple.<br>Free tools for your everyday workflow.</p></div><div class="footer-links"><div><strong>Explore</strong><a href="/#tools">All tools</a><a href="/?category=pdf#tools">PDF tools</a><a href="/?category=image#tools">Image tools</a></div><div><strong>Company</strong><a href="/about">About</a><a href="/contact">Contact</a><a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Use</a></div></div></div><div class="footer-bottom"><span>© <span id="year">2026</span> ToolNest. All rights reserved.</span><span>Made for everyday work <span aria-hidden="true">✳</span></span></div></footer>
 </div>
 <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+<div id="cookie-banner" role="region" aria-label="Cookie preferences" hidden
+     style="position:fixed;bottom:16px;left:16px;right:16px;max-width:520px;margin:auto;background:#123d2a;color:white;padding:20px;border-radius:14px;z-index:9999;box-shadow:0 8px 30px #0004;">
+  <p>We use optional analytics cookies to improve ToolNest.
+    <a href="/privacy" style="color:#b9f3d0;">Privacy Policy</a>
+  </p>
+  <button id="accept-cookies" type="button">Accept</button>
+  <button id="reject-cookies" type="button">Reject</button>
+</div>
+<button id="cookie-settings" type="button"
+style="position:fixed !important;bottom:15px !important;right:15px !important;left:auto !important;z-index:99999 !important;background:#123d2a;color:white;padding:10px 15px;border:0;border-radius:8px;cursor:pointer;">
+Cookie Settings
+</button>
+<script>
+  (function () {
+    const banner = document.getElementById('cookie-banner');
+    const choice = localStorage.getItem('toolnest_cookie_consent');
+
+    if (choice !== 'accepted' && choice !== 'rejected') {
+      banner.hidden = false;
+    }
+
+    document.getElementById('accept-cookies').onclick = function () {
+      localStorage.setItem('toolnest_cookie_consent', 'accepted');
+      banner.hidden = true;
+      enableAnalytics();
+    };
+
+    document.getElementById('reject-cookies').onclick = function () {
+      localStorage.setItem('toolnest_cookie_consent', 'rejected');
+      banner.hidden = true;
+    };
+
+    document.getElementById('cookie-settings').onclick = function () {
+  document.getElementById('cookie-banner').hidden = false;
+};
+  })();
+</script>
 </body>
 </html>

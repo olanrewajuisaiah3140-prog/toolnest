@@ -1,21 +1,215 @@
-<!doctype html><html lang="en"><head>
-    
-<!-- Google Analytics 4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-SVJBD7FV2R"></script>
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="{{ description }}">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="{{ site_url }}{{ request.path }}">
+  <title>{{ title }} | ToolNest</title>
+  <link rel="icon" href="{{ url_for('static', filename='favicon.svg') }}" type="image/svg+xml">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-SVJBD7FV2R');
+  function enableAnalytics() {
+    if (window.toolnestAnalyticsLoaded) return;
+    window.toolnestAnalyticsLoaded = true;
+
+    const script = document.createElement('script');
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=G-SVJBD7FV2R';
+    script.async = true;
+    document.head.appendChild(script);
+
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-SVJBD7FV2R');
+  }
+
+  if (localStorage.getItem('toolnest_cookie_consent') === 'accepted') {
+    enableAnalytics();
+  }
 </script>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="{{ description }}"><meta name="robots" content="index,follow"><link rel="canonical" href="{{ site_url }}{{ request.path }}"><title>{{ title }} | ToolNest</title><link rel="icon" href="{{ url_for('static', filename='favicon.svg') }}" type="image/svg+xml"><link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}"></head><body class="inner-page"><a class="skip-link" href="#main">Skip to content</a><div class="site-shell"><header class="top"><a class="logo" href="/"><span class="logo-mark">✦</span><span>ToolNest<span class="logo-dot">.</span></span></a><nav class="top-nav"><a href="/#tools">All tools</a><a href="/?category=pdf#tools">PDF tools</a><a href="/?category=image#tools">Image tools</a><a href="/about">About us</a></nav><a class="nav-cta" href="/#tools">Explore tools ↗</a></header><main id="main"><div class="page-hero"><span class="eyebrow">TOOLNEST / INFORMATION</span><h1>{{ title }}<span class="title-period">.</span></h1><p>Everything you need to know, clearly explained.</p></div><article class="page-copy">
-{% if page == 'about' %}
-<p>ToolNest brings everyday online utilities together in one easy-to-use place. Our current tools help with PDF documents, image compression, QR codes, password creation, and text.</p><h2>What we're building</h2><p>Practical, straightforward utilities that work on phones and computers. We aim to keep common tasks accessible without requiring an account.</p><h2>How the tools work</h2><p>Some tasks, such as counting words and generating passwords, run in your browser. File-conversion and PDF processing features send files to our server to process and return the output.</p><h2>A note on limitations</h2><p>PDF compression may not always reduce file size, and extracting text from scanned PDFs requires OCR, which is not yet available.</p>
-{% elif page == 'privacy' %}
-<p class="notice"><strong>Privacy notice:</strong> This policy describes the current ToolNest application. We will update it if we introduce analytics or advertising services.</p><h2>Information you provide</h2><p>ToolNest does not require an account. When you use PDF or image tools, you upload files for processing. Some other tools, such as the word counter and password generator, run locally in your browser.</p><h2>File processing</h2><p>ToolNest processes uploads to produce your download. PDF compression may create temporary files on the hosting server and removes them at the end of processing. We do not intentionally keep a permanent library of uploaded documents. Hosting providers, proxies, operating systems, and server logs may still handle temporary data or metadata. Avoid uploading sensitive or confidential files.</p><h2>Technical data</h2><p>Our hosting provider may process IP addresses, request timestamps, browser details and access logs needed to deliver the service and keep it secure. Retention depends on the hosting provider's configuration.</p><h2>Cookies, analytics and advertising</h2><p>ToolNest's initial application code does not install analytics or advertising cookies. If we add analytics or advertising later, this page will need to explain those services, any cookies, and applicable choices or consent.</p><h2>Questions or removal requests</h2><p>Use the contact instructions on our <a href="/contact">Contact page</a>. File processing happens per request; the application does not currently maintain a user account or uploaded-document library.</p>
-{% elif page == 'terms' %}
-<p class="notice">These are ToolNest’s current terms of use. Use the website responsibly and verify your output files.</p><h2>Use of the service</h2><p>ToolNest provides free online utilities on an as-available basis. Do not use the service for unlawful content, infringement, harmful code, or attempts to overload or disrupt the website.</p><h2>Your files and responsibilities</h2><p>You are responsible for having the rights and permissions needed to upload and process your files. Please avoid sensitive documents while the service is in early development.</p><h2>Service limitations</h2><p>We do not guarantee uninterrupted operation or perfect conversion results. Verify downloaded documents before relying on them, and keep copies of your originals.</p><h2>Changes</h2><p>Tools, limits, and these terms may change as the project develops.</p><h2>Contact</h2><p>For questions, visit the <a href="/contact">Contact page</a>.</p>
-{% elif page == 'contact' %}
-<p>Have feedback, a bug report or a feature idea? We'd like to hear it.</p><p>ToolNest is supported by Novique Studio. Contact us via <a href="https://wa.me/2347047385514" rel="noopener noreferrer">WhatsApp (+234 704 738 5514)</a> for feedback, bug reports or general questions. We do not yet offer email support.</p><h2>Helpful information for a bug report</h2><p>Please include the tool name, the result you expected, what happened instead, and your browser/device. Do not send passwords or confidential documents.</p>
-{% endif %}
-</article></main><footer class="site-footer"><div class="footer-main"><div><a class="logo footer-logo" href="/"><span class="logo-mark">✦</span><span>ToolNest<span class="logo-dot">.</span></span></a><p>Small tasks, beautifully simple.<br>Free tools for your everyday workflow.</p></div><div class="footer-links"><div><strong>Explore</strong><a href="/#tools">All tools</a><a href="/?category=pdf#tools">PDF tools</a><a href="/?category=image#tools">Image tools</a></div><div><strong>Company</strong><a href="/about">About</a><a href="/contact">Contact</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div></div></div><div class="footer-bottom"><span>© 2026 ToolNest. All rights reserved.</span><span>Made for everyday work ✳</span></div></footer></div></body></html>
+</head>
+
+<body class="inner-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="site-shell">
+    <header class="top">
+      <a class="logo" href="/">
+        <span class="logo-mark">✦</span>
+        <span>ToolNest<span class="logo-dot">.</span></span>
+      </a>
+
+      <nav class="top-nav">
+        <a href="/#tools">All tools</a>
+        <a href="/?category=pdf#tools">PDF tools</a>
+        <a href="/?category=image#tools">Image tools</a>
+        <a href="/about">About us</a>
+      </nav>
+
+      <a class="nav-cta" href="/#tools">Explore tools ↗</a>
+    </header>
+
+    <main id="main">
+      <div class="page-hero">
+        <span class="eyebrow">TOOLNEST / INFORMATION</span>
+        <h1>{{ title }}<span class="title-period">.</span></h1>
+        <p>Everything you need to know, clearly explained.</p>
+      </div>
+
+      <article class="page-copy">
+
+        {% if page == 'about' %}
+
+        <p>ToolNest brings everyday online utilities together in one easy-to-use place. Our current tools help with PDF documents, image compression, QR codes, password creation, and text.</p>
+
+        <h2>What we're building</h2>
+        <p>Practical, straightforward utilities that work on phones and computers. We aim to keep common tasks accessible without requiring an account.</p>
+
+        <h2>How the tools work</h2>
+        <p>Some tasks, such as counting words and generating passwords, run in your browser. File-conversion and PDF processing features send files to our server to process and return the output.</p>
+
+        <h2>A note on limitations</h2>
+        <p>PDF compression may not always reduce file size, and extracting text from scanned PDFs requires OCR, which is not yet available.</p>
+
+        {% elif page == 'privacy' %}
+
+        <p class="notice">
+          <strong>Privacy notice:</strong>
+          This policy explains how ToolNest handles uploaded files, technical information, and website analytics.
+        </p>
+
+        <h2>Information you provide</h2>
+        <p>ToolNest does not require an account. When you use PDF or image tools, you upload files for processing. Some other tools, such as the word counter and password generator, run locally in your browser.</p>
+
+        <h2>File processing</h2>
+        <p>ToolNest processes uploads to produce your download. PDF compression may create temporary files on the hosting server and removes them at the end of processing. We do not intentionally keep a permanent library of uploaded documents. Hosting providers, proxies, operating systems, and server logs may still handle temporary data or metadata. Avoid uploading sensitive or confidential files.</p>
+
+        <h2>Technical data</h2>
+        <p>Our hosting provider may process IP addresses, request timestamps, browser details and access logs needed to deliver the service and keep it secure. Retention depends on the hosting provider's configuration.</p>
+
+        <h2>Google Analytics</h2>
+        <p>ToolNest uses Google Analytics 4, a website analytics service provided by Google, to understand visitor traffic, page views, and website usage. Google Analytics may collect information such as browser type, device information, approximate location, and interactions with the website.</p>
+
+        <p>Analytics data helps us understand which tools are useful and how to improve the website. We do not intentionally send uploaded document contents, generated passwords, or other sensitive tool inputs to Google Analytics.</p>
+
+        <h2>Cookies, consent and advertising</h2>
+        <p>Google Analytics may use cookies or similar technologies to measure website usage. Where applicable law requires consent, non-essential analytics should only be activated after the visitor has agreed. ToolNest is working on implementing the necessary consent controls.</p>
+
+        <p>ToolNest does not currently display third-party advertisements. If advertising services are introduced, we will update this policy to explain the relevant data practices and visitor choices.</p>
+
+        <h2>Third-party services</h2>
+        <p>Our website is hosted using Render and uses Google Analytics for traffic measurement. These service providers may process technical information in accordance with their own privacy practices.</p>
+
+        <p>For more information about Google's data practices, visit the <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy Policy</a>.</p>
+
+        <h2>Questions or removal requests</h2>
+        <p>Use the contact instructions on our <a href="/contact">Contact page</a>. File processing happens per request; the application does not currently maintain a user account or uploaded-document library.</p>
+
+        {% elif page == 'terms' %}
+
+        <p class="notice">These are ToolNest's current terms of use. Use the website responsibly and verify your output files.</p>
+
+        <h2>Use of the service</h2>
+        <p>ToolNest provides free online utilities on an as-available basis. Do not use the service for unlawful content, infringement, harmful code, or attempts to overload or disrupt the website.</p>
+
+        <h2>Your files and responsibilities</h2>
+        <p>You are responsible for having the rights and permissions needed to upload and process your files. Please avoid sensitive documents while the service is in early development.</p>
+
+        <h2>Service limitations</h2>
+        <p>We do not guarantee uninterrupted operation or perfect conversion results. Verify downloaded documents before relying on them, and keep copies of your originals.</p>
+
+        <h2>Changes</h2>
+        <p>Tools, limits, and these terms may change as the project develops.</p>
+
+        <h2>Contact</h2>
+        <p>For questions, visit the <a href="/contact">Contact page</a>.</p>
+
+        {% elif page == 'contact' %}
+
+        <p>Have feedback, a bug report or a feature idea? We'd like to hear it.</p>
+
+        <p>ToolNest is supported by Novique Studio. Contact us via <a href="https://wa.me/2347047385514" rel="noopener noreferrer">WhatsApp (+234 704 738 5514)</a> for feedback, bug reports or general questions. We do not yet offer email support.</p>
+
+        <h2>Helpful information for a bug report</h2>
+        <p>Please include the tool name, the result you expected, what happened instead, and your browser/device. Do not send passwords or confidential documents.</p>
+
+        {% endif %}
+
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-main">
+        <div>
+          <a class="logo footer-logo" href="/">
+            <span class="logo-mark">✦</span>
+            <span>ToolNest<span class="logo-dot">.</span></span>
+          </a>
+          <p>Small tasks, beautifully simple.<br>Free tools for your everyday workflow.</p>
+        </div>
+
+        <div class="footer-links">
+          <div>
+            <strong>Explore</strong>
+            <a href="/#tools">All tools</a>
+            <a href="/?category=pdf#tools">PDF tools</a>
+            <a href="/?category=image#tools">Image tools</a>
+          </div>
+
+          <div>
+            <strong>Company</strong>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/privacy">Privacy</a>
+            <a href="/terms">Terms</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 ToolNest. All rights reserved.</span>
+        <span>Made for everyday work ✳</span>
+      </div>
+    </footer>
+  </div>
+  <div id="cookie-banner" role="region" aria-label="Cookie preferences" hidden
+     style="position:fixed;bottom:16px;left:16px;right:16px;max-width:520px;margin:auto;background:#123d2a;color:white;padding:20px;border-radius:14px;z-index:9999;box-shadow:0 8px 30px #0004;">
+  <p>We use optional analytics cookies to improve ToolNest.
+    <a href="/privacy" style="color:#b9f3d0;">Privacy Policy</a>
+  </p>
+  <button id="accept-cookies" type="button">Accept</button>
+  <button id="reject-cookies" type="button">Reject</button>
+</div>
+<button id="cookie-settings" type="button"
+style="position:fixed !important;bottom:15px !important;right:15px !important;left:auto !important;z-index:99999 !important;background:#123d2a;color:white;padding:10px 15px;border:0;border-radius:8px;cursor:pointer;">
+Cookie Settings
+</button>
+<script>
+  (function () {
+    const banner = document.getElementById('cookie-banner');
+    const choice = localStorage.getItem('toolnest_cookie_consent');
+
+    if (choice !== 'accepted' && choice !== 'rejected') {
+      banner.hidden = false;
+    }
+
+    document.getElementById('accept-cookies').onclick = function () {
+      localStorage.setItem('toolnest_cookie_consent', 'accepted');
+      banner.hidden = true;
+      enableAnalytics();
+    };
+
+    document.getElementById('reject-cookies').onclick = function () {
+      localStorage.setItem('toolnest_cookie_consent', 'rejected');
+      banner.hidden = true;
+    };
+    document.getElementById('cookie-settings').onclick = function () {
+  document.getElementById('cookie-banner').hidden = false;
+};
+  })();
+</script>
+</body>
+</html>

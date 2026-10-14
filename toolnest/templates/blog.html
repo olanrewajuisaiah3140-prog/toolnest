@@ -1,0 +1,226 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>ToolNest Blog — Free PDF, Image & Productivity Guides</title>
+  <meta name="description" content="Learn how to compress PDFs, convert images, and work smarter with free, easy-to-follow tutorials from ToolNest.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="{{ site_url }}/blog">
+
+  <link rel="icon" href="{{ url_for('static', filename='favicon.svg') }}" type="image/svg+xml">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+  <!-- Consent-aware Google Analytics -->
+  <script>
+    function enableAnalytics() {
+      if (window.toolnestAnalyticsLoaded) return;
+      window.toolnestAnalyticsLoaded = true;
+
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-SVJBD7FV2R');
+
+      const script = document.createElement('script');
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=G-SVJBD7FV2R';
+      script.async = true;
+      document.head.appendChild(script);
+    }
+
+    if (localStorage.getItem('toolnest_cookie_consent') === 'accepted') {
+      enableAnalytics();
+    }
+  </script>
+
+  <style>
+    .blog-container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 55px 24px 90px;
+    }
+    .blog-heading {
+      max-width: 750px;
+      margin-bottom: 45px;
+    }
+    .blog-heading h1 {
+      font-size: clamp(38px, 6vw, 68px);
+      line-height: 1.1;
+      margin: 15px 0 20px;
+    }
+    .blog-heading p {
+      font-size: 18px;
+      line-height: 1.7;
+      opacity: .8;
+    }
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 24px;
+    }
+    .blog-card {
+      display: block;
+      padding: 32px;
+      border-radius: 22px;
+      background: #f5f7f2;
+      color: #123d2a;
+      text-decoration: none;
+      border: 1px solid #dce7dc;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .blog-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 35px #123d2a15;
+    }
+    .blog-card h2 {
+      font-size: 26px;
+      margin: 16px 0;
+      line-height: 1.3;
+    }
+    .blog-card p {
+      line-height: 1.7;
+      margin-bottom: 22px;
+    }
+    .blog-category {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+    .blog-link {
+      font-weight: 700;
+    }
+    .blog-feature {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 150px;
+      border-radius: 14px;
+      background: #dcebdd;
+      font-size: 54px;
+      margin-bottom: 25px;
+    }
+  </style>
+</head>
+
+<body class="inner-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="site-shell">
+    <header class="top">
+      <a class="logo" href="/">
+        <span class="logo-mark">✦</span>
+        <span>ToolNest<span class="logo-dot">.</span></span>
+      </a>
+
+      <nav class="top-nav">
+        <a href="/#tools">All tools</a>
+        <a href="/?category=pdf#tools">PDF tools</a>
+        <a href="/?category=image#tools">Image tools</a>
+        <a href="/blog">Blog</a>
+        <a href="/about">About us</a>
+      </nav>
+
+      <a class="nav-cta" href="/#tools">Explore tools ↗</a>
+    </header>
+
+    <main id="main" class="blog-container">
+      <div class="blog-heading">
+        <span class="eyebrow">TOOLNEST / GUIDES & TUTORIALS</span>
+        <h1>Learn something <span class="title-period">useful.</span></h1>
+        <p>Practical guides to help you work with PDF files, images, and everyday digital tasks. Simple explanations, useful tips, and free tools.</p>
+      </div>
+
+      <section aria-label="Latest articles">
+        <div class="blog-grid">
+          <a class="blog-card" href="/blog/how-to-compress-pdf-online-free">
+            <div class="blog-feature" aria-hidden="true">📄</div>
+            <span class="blog-category">PDF GUIDES · 5 MIN READ</span>
+            <h2>How to Compress PDF Files Online for Free (2026 Guide)</h2>
+            <p>Learn how to reduce PDF file size, choose compression settings, and make documents easier to share.</p>
+            <span class="blog-link">Read the guide ↗</span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-main">
+        <div>
+          <a class="logo footer-logo" href="/">
+            <span class="logo-mark">✦</span>
+            <span>ToolNest<span class="logo-dot">.</span></span>
+          </a>
+          <p>Small tasks, beautifully simple.<br>Free tools for your everyday workflow.</p>
+        </div>
+
+        <div class="footer-links">
+          <div>
+            <strong>Explore</strong>
+            <a href="/#tools">All tools</a>
+            <a href="/blog">Blog</a>
+            <a href="/?category=pdf#tools">PDF tools</a>
+          </div>
+          <div>
+            <strong>Company</strong>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/privacy">Privacy Policy</a>
+            <a href="/terms">Terms of Use</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 ToolNest. All rights reserved.</span>
+        <span>Made for everyday work ✳</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Cookie consent banner -->
+  <div id="cookie-banner" role="region" aria-label="Cookie preferences" hidden
+       style="position:fixed;bottom:16px;left:16px;right:16px;max-width:520px;margin:auto;background:#123d2a;color:white;padding:20px;border-radius:14px;z-index:9999;box-shadow:0 8px 30px #0004;">
+    <p>We use optional analytics cookies to improve ToolNest.
+      <a href="/privacy" style="color:#b9f3d0;">Privacy Policy</a>
+    </p>
+    <button id="accept-cookies" type="button">Accept</button>
+    <button id="reject-cookies" type="button">Reject</button>
+  </div>
+
+  <button id="cookie-settings" type="button"
+    style="position:fixed !important;bottom:15px !important;right:15px !important;left:auto !important;z-index:99999 !important;background:#123d2a;color:white;padding:10px 15px;border:0;border-radius:8px;cursor:pointer;">
+    Cookie Settings
+  </button>
+
+  <script>
+    (function () {
+      const banner = document.getElementById('cookie-banner');
+      const choice = localStorage.getItem('toolnest_cookie_consent');
+
+      if (choice !== 'accepted' && choice !== 'rejected') {
+        banner.hidden = false;
+      }
+
+      document.getElementById('accept-cookies').onclick = function () {
+        localStorage.setItem('toolnest_cookie_consent', 'accepted');
+        banner.hidden = true;
+        enableAnalytics();
+      };
+
+      document.getElementById('reject-cookies').onclick = function () {
+        localStorage.setItem('toolnest_cookie_consent', 'rejected');
+        banner.hidden = true;
+        // Reload to stop future analytics requests on this page.
+        window.location.reload();
+      };
+
+      document.getElementById('cookie-settings').onclick = function () {
+        banner.hidden = false;
+      };
+    })();
+  </script>
+</body>
+</html>

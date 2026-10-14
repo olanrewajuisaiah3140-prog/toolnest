@@ -67,12 +67,28 @@ def robots():
 @app.get('/sitemap.xml')
 def sitemap():
     from xml.sax.saxutils import escape
-    paths = ['/', '/about', '/privacy', '/terms', '/contact'] + [f"/{tool['slug']}" for tool in TOOL_PAGES]
+    paths = ['/', '/about', '/privacy', '/terms', '/contact',
+         '/blog', '/blog/how-to-compress-pdf-online-free'] + [
+         f"/{tool['slug']}" for tool in TOOL_PAGES
+]
     urls = ''.join(f'<url><loc>{escape(SITE_URL + path)}</loc></url>' for path in paths)
     return Response('<?xml version="1.0" encoding="UTF-8"?>'
                     '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
                     + urls + '</urlset>', mimetype='application/xml')
+@app.get('/blog')
+def blog():
+    return render_template(
+        'blog.html',
+        site_url=SITE_URL
+    )
 
+
+@app.get('/blog/how-to-compress-pdf-online-free')
+def compress_pdf_article():
+    return render_template(
+        'blog_article.html',
+        site_url=SITE_URL
+    )
 
 @app.get('/health')
 def health():

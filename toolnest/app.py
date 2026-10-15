@@ -89,7 +89,12 @@ def compress_pdf_article():
         'blog_article.html',
         site_url=SITE_URL
     )
-
+@app.get('/ads.txt')
+def ads_txt():
+    return Response(
+        'google.com, pub-5720641024099283, DIRECT, f08c47fec0942fa0\n',
+        mimetype='text/plain'
+    )
 @app.get('/health')
 def health():
     return jsonify(status='ok')
